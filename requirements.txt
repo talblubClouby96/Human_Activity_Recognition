@@ -1,5 +1,5 @@
 tensorflow
 mediapipe
-opencv-python-headles
+opencv_python
 yt-dlp
 numpy
