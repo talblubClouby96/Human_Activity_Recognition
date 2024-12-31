@@ -1,0 +1,42 @@
+name: Process YouTube Playlists
+on:
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        playlist_url:
+          - "https://youtube.com/playlist?list=PLxAV24iZ-nXitpp0NChh-_6XusIgOxe51"
+          - "https://youtube.com/playlist?list=PLxAV24iZ-nXhtyoQD0TwUqjYccDHanCb0&si=1mKZZulrgKun_Lbz"
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.9"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Download YouTube playlist
+      run: |
+        python download_videos.py "${{ matrix.playlist_url }}"
+
+    - name: Process downloaded videos
+      run: |
+        python process_videos.py
+
+    - name: Archive processed videos
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: processed-videos-${{ matrix.playlist_url }}
+        path: ./processed_videos/
