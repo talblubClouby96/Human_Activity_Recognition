@@ -29,17 +29,23 @@
 import os
 import gdown
 
-# Link chia sẻ Google Drive folder
-drive_folder_link = "https://drive.google.com/drive/folders/1yy6p1elMi5yO7gUyXuT_ZW9BUhCpX0i7"
+def download_videos(drive_folder_link, output_dir='./videos'):
+    
+    folder_id = drive_folder_link.split("/")[-1]
 
-# Lấy ID của folder
-folder_id = drive_folder_link.split("/")[-1]
-
-# Tải toàn bộ file từ folder
-output_dir = "./videos"
-os.makedirs(output_dir, exist_ok=True)
-
-# Tải toàn bộ file trong folder
-gdown.download_folder(id=folder_id, output=output_dir, quiet=False, use_cookies=False)
-
-print("Download completed!")
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Tải toàn bộ file trong folder
+    gdown.download_folder(id=folder_id, output=output_dir, quiet=False, use_cookies=False)
+    print("Download completed!")
+    
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python download_videos.py <drive_folder_link>")
+        sys.exit(1)
+    
+    # Lấy URL playlist từ tham số dòng lệnh
+    drive_folder_link = sys.argv[1]
+    
+    # Gọi hàm tải video
+    download_videos(drive_folder_link)
