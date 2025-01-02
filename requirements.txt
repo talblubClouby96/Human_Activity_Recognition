@@ -3,3 +3,4 @@ mediapipe
 opencv_python
 yt-dlp
 numpy
+gdown
