@@ -49,5 +49,5 @@ jobs:
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: processed-videos-${{ matrix.drive_folder_link | split('/')[-1] }}
+        name: processed-videos-${{ matrix.drive_folder_link.split('/')[-1] }}
         path: ./processed_videos/
