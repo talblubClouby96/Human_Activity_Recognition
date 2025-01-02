@@ -8,15 +8,23 @@ jobs:
 
     strategy:
       matrix:
-        drive_folder_link:
-          - "https://drive.google.com/drive/folders/1zWinJtXDq4hEL8nr8zS04zTBMdJ9sWZF"
-          - "https://drive.google.com/drive/folders/1zTKo79rnpx_DLwmDQa7lHZ7CcnoFPAfn"
-          - "https://drive.google.com/drive/folders/1zNaYhmYR5Ev9rVCZb7aEqkGvxFyTJuR"
-          - "https://drive.google.com/drive/folders/1zLvDLb1heNzmCEtSF_kIz4IHaVz1do2_"
-          - "https://drive.google.com/drive/folders/1zDWhQeNhK2myNAsl_fH5tD-J-LgcK4FP"
-          - "https://drive.google.com/drive/folders/1zC6bBMyZz7bgPgG-feYIw4K6El6nWX7h"
-          - "https://drive.google.com/drive/folders/1z7LGDOm9vNIwveg44PuChfnXJxnPxRXV"
-          - "https://drive.google.com/drive/folders/1z0kz5C5xuSTwfNmbVJXY155aoCgty2aI"
+        include:
+          - index: 1
+            url: "https://drive.google.com/drive/folders/1zWinJtXDq4hEL8nr8zS04zTBMdJ9sWZF"
+          - index: 2
+            url: "https://drive.google.com/drive/folders/1zTKo79rnpx_DLwmDQa7lHZ7CcnoFPAfn"
+          - index: 3
+            url: "https://drive.google.com/drive/folders/1zNaYhmYR5Ev9rVCZb7aEqkGvxFyTJuR"
+          - index: 4
+            url: "https://drive.google.com/drive/folders/1zLvDLb1heNzmCEtSF_kIz4IHaVz1do2_"
+          - index: 5
+            url: "https://drive.google.com/drive/folders/1zDWhQeNhK2myNAsl_fH5tD-J-LgcK4FP"
+          - index: 6
+            url: "https://drive.google.com/drive/folders/1zC6bBMyZz7bgPgG-feYIw4K6El6nWX7h"
+          - index: 7
+            url: "https://drive.google.com/drive/folders/1z7LGDOm9vNIwveg44PuChfnXJxnPxRXV"
+          - index: 8
+            url: "https://drive.google.com/drive/folders/1z0kz5C5xuSTwfNmbVJXY155aoCgty2aI"
 
       fail-fast: false  # This ensures that the matrix continues running even if some jobs fail.
 
@@ -38,7 +46,7 @@ jobs:
 
     - name: Download YouTube playlist
       run: |
-         python download_videos.py "${{ matrix.drive_folder_link }}" 
+         python download_videos.py "${{ matrix.url }}" 
       continue-on-error: true
 
     - name: Process downloaded videos
@@ -49,5 +57,5 @@ jobs:
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: processed-videos-${{ matrix.drive_folder_link.split('/')[-1] }}
+        name: processed-videos-${{ matrix.index }}
         path: ./processed_videos/
