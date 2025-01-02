@@ -36,7 +36,7 @@ drive_folder_link = "https://drive.google.com/drive/folders/1yy6p1elMi5yO7gUyXuT
 folder_id = drive_folder_link.split("/")[-1]
 
 # Tải toàn bộ file từ folder
-output_dir = "./downloaded_files"
+output_dir = "./videos"
 os.makedirs(output_dir, exist_ok=True)
 
 # Tải toàn bộ file trong folder
