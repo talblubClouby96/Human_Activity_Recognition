@@ -82,14 +82,16 @@ def process_all_videos(input_dir, output_dir, num_threads=2, delay_between_threa
     video_files = [os.path.join(input_dir, f) for f in os.listdir(input_dir) if f.endswith(('.mp4', '.avi'))]
     os.makedirs(output_dir, exist_ok=True)
 
-    def delayed_process(video_path, output_dir):
-        process_video(video_path, output_dir)
-        time.sleep(delay_between_threads)
+    # def delayed_process(video_path, output_dir):
+    #     process_video(video_path, output_dir)
+    #     time.sleep(delay_between_threads)
 
-    with ThreadPoolExecutor(max_workers=num_threads) as executor:
-        futures = [executor.submit(delayed_process, video_path, output_dir) for video_path in video_files]
-        for future in futures:
-            future.result()
+    # with ThreadPoolExecutor(max_workers=num_threads) as executor:
+    #     futures = [executor.submit(delayed_process, video_path, output_dir) for video_path in video_files]
+    #     for future in futures:
+    #         future.result()
+    for video_path in video_files:
+        process_video(video_path, output_dir)
 
 if __name__ == "__main__":
     input_dir = "./videos"  # Thư mục chứa video đã tải
